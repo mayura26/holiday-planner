@@ -3,6 +3,7 @@ export type Activity = {
   duration: number;
   label: string;
   category: Category;
+  notes?: string;
 };
 
 export type Category =
@@ -21,7 +22,7 @@ export const colors: Record<Category, string> = {
   "Hiking": "#2F855A", // Darker green
   "Rafting": "#2B6CB0", // Darker blue
   "Eating": "#6B46C1", // Darker purple
-  "Hotel/Rest": "#B7791F", // Darker yellow/gold
+  "Hotel/Rest": "#D69E2E", // Darker yellow/gold
   "Other": "#C05621", // Darker orange
   "Sleeping": "#4A5568" // Darker gray
 };
@@ -80,11 +81,14 @@ export const schedule: Record<number, DaySchedule> = {
     { startTime: 19.0, duration: 0.5, label: "Drive Back to Moab", category: "Driving" },
     { startTime: 20.0, duration: 1.5, label: "Dinner in Moab", category: "Eating" },
     { startTime: 21.5, duration: 1.5, label: "Hotel & Rest", category: "Hotel/Rest" },
-    { startTime: 23.0, duration: 7.0, label: "Sleep", category: "Sleeping" }
+    { startTime: 23.0, duration: 7.0, label: "Sleep", category: "Sleeping" },
+    { startTime: 13.15, duration: 0.75, label: "Check-in for Antelope Canyon Kayak Tour", category: "Other", notes: "Check-in 45 mins before tour. Booking ID: B-PR4VN53. Fill out waivers online before arrival. Need National Parks pass or $30/car." },
+    { startTime: 14.0, duration: 3.0, label: "Antelope Canyon Kayak Tour", category: "Rafting", notes: "Provided: Life jacket, dry bag, kayak. Bring: Water bottles, snacks, camera. Wear: Sturdy water shoes, sun protection, layers. Expect steep sandy hill walking and choppy waters." }
   ],
   5: [
     { startTime: 7.0, duration: 1.0, label: "Breakfast & Raft Prep", category: "Eating" },
-    { startTime: 8.0, duration: 4.0, label: "Colorado River Rafting", category: "Rafting" },
+    { startTime: 8.0, duration: 0.75, label: "Drive to Navtec Expeditions", category: "Driving", notes: "Location: 321 N Main St, Moab" },
+    { startTime: 9.0, duration: 3.0, label: "Fisher Towers Half-Day Rafting", category: "Rafting", notes: "Confirmation #: 1618601913, Booking Ref: 123425084. Meet at Kokopelli Lodgings (72 S 100 E, Moab). Free cancellation before Apr 15." },
     { startTime: 12.0, duration: 0.5, label: "Dry Off & Snack/Coffee", category: "Eating" },
     { startTime: 12.5, duration: 0.5, label: "Drive to Fisher Towers", category: "Driving" },
     { startTime: 13.0, duration: 3.0, label: "Hike Fisher Towers", category: "Hiking" },

@@ -2,20 +2,24 @@
 
 import { Activity, colors, Category } from '../data/schedule';
 import { Card } from '@/components/ui/card';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface DayScheduleProps {
   day: number;
   activities: Activity[];
+  defaultShowTimescale?: boolean;
+  globalStartTime?: number;
+  globalEndTime?: number;
+  isCompact?: boolean;
 }
 
 function formatTime(time: number): string {
   const hours = Math.floor(time);
-  const minutes = Math.round((time % 1) * 100);
+  const minutes = Math.round((time % 1) * 60);
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 }
 
@@ -32,54 +36,71 @@ function formatTimeRange(startTime: number, endTime: number, duration: number): 
   return `${start} - ${end} (${formatDuration(duration)})`;
 }
 
-export function DaySchedule({ day, activities }: DayScheduleProps) {
-  const [showTimescale, setShowTimescale] = useState(false);
+export function DaySchedule({ 
+  day, 
+  activities, 
+  defaultShowTimescale = false,
+  globalStartTime,
+  globalEndTime,
+  isCompact = false
+}: DayScheduleProps) {
+  const [showTimescale, setShowTimescale] = useState(defaultShowTimescale);
   const [selectedActivity, setSelectedActivity] = useState<number | null>(null);
+  const [showNotes, setShowNotes] = useState<Activity | null>(null);
   const totalHours = activities.reduce((sum, activity) => sum + activity.duration, 0);
   const categorySummary = Object.fromEntries(
     Object.keys(colors).map(category => [
       category,
-      activities.reduce((sum, activity) => 
-        activity.category === category ? sum + activity.duration : sum, 
-        0
-      )
-    ]).filter(([_, hours]) => (hours as number) > 0)
+      activities
+        .filter(activity => activity.category === category)
+        .reduce((sum, activity) => sum + activity.duration, 0)
+    ] as [string, number])
+    .filter(([_, hours]) => hours > 0)
   );
 
-  // Calculate the earliest and latest times for the day
-  const startTime = Math.floor(Math.min(...activities.map(a => a.startTime)));
-  const endTime = Math.ceil(Math.max(...activities.map(a => a.startTime + a.duration)));
+  // Calculate time range for visualization
+  const startTime = globalStartTime ?? Math.min(...activities.map(a => a.startTime));
+  const endTime = globalEndTime ?? Math.max(...activities.map(a => a.startTime + a.duration));
   const totalTimeRange = endTime - startTime;
-
-  // Generate hour markers for the timescale
-  const hourMarkers = [];
-  for (let hour = startTime; hour <= endTime; hour++) {
-    hourMarkers.push(hour);
-  }
+  const hourMarkers = Array.from(
+    { length: Math.ceil(endTime) - Math.floor(startTime) + 1 },
+    (_, i) => Math.floor(startTime) + i
+  );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-bold">Day {day}</h3>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center space-x-2">
+    <div className={cn("space-y-3", isCompact && "space-y-1.5")}>
+      <div className={cn(
+        "flex justify-between items-center",
+        isCompact && "text-sm"
+      )}>
+        <h3 className={cn(
+          "font-bold",
+          isCompact ? "text-base" : "text-2xl"
+        )}>Day {day}</h3>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center space-x-1">
             <Switch
               id={`timescale-${day}`}
               checked={showTimescale}
               onCheckedChange={setShowTimescale}
             />
-            <Label htmlFor={`timescale-${day}`}>Show Timescale</Label>
+            <Label htmlFor={`timescale-${day}`} className={cn(
+              isCompact && "text-xs"
+            )}>Time</Label>
           </div>
-          <div className="text-sm text-gray-600">
-            Total: {totalHours.toFixed(1)} hours
+          <div className={cn(
+            "text-gray-600",
+            isCompact ? "text-xs" : "text-sm"
+          )}>
+            {totalHours.toFixed(1)}h
           </div>
         </div>
       </div>
 
-      <div className={showTimescale ? 'relative ml-16' : 'space-y-2'}>
+      <div className={showTimescale ? 'relative ml-12' : 'space-y-1.5'}>
         {showTimescale && (
           <>
-            <div className="absolute left-0 top-0 bottom-0 w-14 -ml-16 border-r border-gray-200">
+            <div className="absolute left-0 top-0 bottom-0 w-10 -ml-12 border-r border-gray-200 overflow-hidden">
               {hourMarkers.map((hour) => (
                 <div
                   key={hour}
@@ -88,85 +109,87 @@ export function DaySchedule({ day, activities }: DayScheduleProps) {
                     top: `${((hour - startTime) / totalTimeRange) * 100}%`,
                   }}
                 >
-                  <div className="absolute right-full pr-2 translate-y-1 translate-x-10 text-xs text-gray-500 whitespace-nowrap">
+                  <div className={cn(
+                    "absolute right-full pr-1 translate-y-1 translate-x-8 whitespace-nowrap text-gray-500",
+                    isCompact ? "text-[8px]" : "text-xs"
+                  )}>
                     {formatTime(hour)}
                   </div>
-                  <div className="absolute left-0 right-[-9999px] border-t border-gray-100 -translate-y-px" />
+                  <div className="absolute left-0 right-0 border-t border-gray-100 -translate-y-px" />
                 </div>
               ))}
             </div>
             <div 
-              className="relative bg-gray-50/30"
-              style={{ height: `${totalTimeRange * 60}px` }}
+              className="relative bg-gray-50/30 overflow-hidden"
+              style={{ height: isCompact ? `${totalTimeRange * 35}px` : `${totalTimeRange * 60}px` }}
               onClick={() => setSelectedActivity(null)}
             >
               {activities.map((activity, index) => {
                 const endTime = activity.startTime + activity.duration;
                 const top = ((activity.startTime - startTime) / totalTimeRange) * 100;
                 const height = (activity.duration / totalTimeRange) * 100;
-                const isShort = height < 5;
+                const isShort = height < 4;
                 const isSelected = selectedActivity === index;
 
                 return (
-                  <TooltipProvider key={index}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
+                  <div 
+                    key={index}
+                    className={cn(
+                      "absolute left-0 right-0 rounded-md overflow-hidden cursor-pointer shadow-sm mx-0.5",
+                      isShort ? "z-0" : "",
+                      isSelected ? "z-10" : ""
+                    )}
+                    style={{
+                      backgroundColor: colors[activity.category],
+                      top: `${top}%`,
+                      height: isShort && isSelected ? '3rem' : `${Math.max(height, isShort ? 1.5 : 3)}%`,
+                      transition: 'height 0.2s ease-in-out'
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (activity.notes) {
+                        setShowNotes(activity);
+                      } else {
+                        setSelectedActivity(isSelected ? null : index);
+                      }
+                    }}
+                  >
+                    <div className="absolute inset-0">
+                      <div 
+                        className={cn(
+                          "absolute inset-0 flex flex-col justify-center transition-all duration-150",
+                          isShort ? "p-0.5" : "p-1",
+                          isShort && isSelected && "p-1.5 bg-black/20"
+                        )}
+                      >
+                        <div className={cn(
+                          "font-medium text-white leading-tight truncate",
+                          isShort ? "text-[8px]" : "text-xs",
+                          isSelected && isShort && "text-[10px] mb-0.5"
+                        )}>
+                          {activity.label}
+                        </div>
                         <div 
                           className={cn(
-                            "absolute left-0 right-0 rounded-lg overflow-hidden cursor-pointer shadow-sm mx-1",
-                            isShort ? "z-0" : "",
-                            isSelected ? "z-10" : ""
+                            "text-white/90 truncate transition-all duration-150",
+                            isShort 
+                              ? cn(
+                                  "text-[8px] h-0 opacity-0",
+                                  isSelected && "h-auto opacity-100"
+                                )
+                              : "text-[10px] mt-auto"
                           )}
-                          style={{
-                            backgroundColor: colors[activity.category],
-                            top: `${top}%`,
-                            height: isShort && isSelected ? '4rem' : `${Math.max(height, isShort ? 2 : 4)}%`,
-                            transition: 'height 0.2s ease-in-out'
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedActivity(isSelected ? null : index);
-                          }}
                         >
-                          <div className="absolute inset-0">
-                            <div 
-                              className={cn(
-                                "absolute inset-0 flex flex-col justify-center transition-all duration-150",
-                                isShort ? "p-0.5" : "p-1.5",
-                                isShort && isSelected && "p-2 bg-black/20"
-                              )}
-                            >
-                              <div className={cn(
-                                "font-medium text-white leading-tight truncate",
-                                isShort ? "text-[10px]" : "text-sm",
-                                isSelected && isShort && "text-xs mb-1"
-                              )}>
-                                {activity.label}
-                              </div>
-                              <div 
-                                className={cn(
-                                  "text-white/90 truncate transition-all duration-150",
-                                  isShort 
-                                    ? cn(
-                                        "text-[10px] h-0 opacity-0",
-                                        isSelected && "h-auto opacity-100"
-                                      )
-                                    : "text-xs mt-auto"
-                                )}
-                              >
-                                {formatTimeRange(activity.startTime, endTime, activity.duration)}
-                              </div>
+                          {formatTimeRange(activity.startTime, endTime, activity.duration)}
+                          {isSelected && activity.notes && (
+                            <div className="mt-1 text-[9px] opacity-90 whitespace-pre-wrap">
+                              {activity.notes}
                             </div>
-                          </div>
+                          )}
                         </div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="font-medium">{activity.label}</p>
-                        <p className="text-xs text-gray-500">{activity.category}</p>
-                        <p className="text-xs">{formatTimeRange(activity.startTime, endTime, activity.duration)}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
             </div>
@@ -177,47 +200,98 @@ export function DaySchedule({ day, activities }: DayScheduleProps) {
           const endTime = activity.startTime + activity.duration;
 
           return (
-            <TooltipProvider key={index}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div 
-                    className="relative h-16 rounded-lg overflow-hidden cursor-pointer shadow-sm"
-                    style={{
-                      backgroundColor: colors[activity.category],
-                    }}
-                  >
-                    <div className="absolute inset-0 p-3 text-white">
-                      <div className="font-semibold">{activity.label}</div>
-                      <div className="text-sm opacity-90">
-                        {formatTimeRange(activity.startTime, endTime, activity.duration)}
-                      </div>
-                    </div>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{activity.category}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <div 
+              key={index}
+              className={cn(
+                "relative rounded-lg overflow-hidden cursor-pointer shadow-sm",
+                isCompact ? "h-12" : "h-16"
+              )}
+              style={{
+                backgroundColor: colors[activity.category],
+              }}
+              onClick={() => activity.notes && setShowNotes(activity)}
+            >
+              <div className={cn(
+                "absolute inset-0 text-white",
+                isCompact ? "p-2" : "p-3"
+              )}>
+                <div className={cn(
+                  "font-semibold flex items-center justify-between",
+                  isCompact && "text-sm"
+                )}>
+                  {activity.label}
+                  {activity.notes && (
+                    <svg 
+                      className="w-4 h-4 opacity-75" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  )}
+                </div>
+                <div className={cn(
+                  "opacity-90",
+                  isCompact ? "text-xs" : "text-sm"
+                )}>
+                  {formatTimeRange(activity.startTime, endTime, activity.duration)}
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
         {Object.entries(categorySummary).map(([category, hours]) => (
           <Card 
             key={category} 
-            className="p-2"
+            className={cn(
+              "relative overflow-hidden",
+              isCompact ? "p-1.5" : "p-2"
+            )}
             style={{ 
               backgroundColor: `${colors[category as keyof typeof colors]}20`,
               borderLeft: `3px solid ${colors[category as keyof typeof colors]}`
             }}
           >
-            <div className="text-xs font-medium text-gray-600">{category}</div>
-            <div className="text-sm font-semibold text-gray-900">{(hours as number).toFixed(1)}h</div>
+            <div className={cn(
+              "font-medium text-gray-600",
+              isCompact ? "text-[10px]" : "text-xs"
+            )}>{category}</div>
+            <div className={cn(
+              "font-semibold text-gray-900",
+              isCompact ? "text-xs" : "text-sm"
+            )}>{(hours as number).toFixed(1)}h</div>
           </Card>
         ))}
       </div>
+
+      <Dialog open={showNotes !== null} onOpenChange={() => setShowNotes(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{showNotes?.label}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-2">
+            <div className="text-sm text-gray-500">
+              {showNotes?.category}
+            </div>
+            <div className="text-sm">
+              {formatTimeRange(
+                showNotes?.startTime || 0,
+                (showNotes?.startTime || 0) + (showNotes?.duration || 0),
+                showNotes?.duration || 0
+              )}
+            </div>
+            {showNotes?.notes && (
+              <div className="text-sm whitespace-pre-wrap border-t pt-2 mt-2">
+                {showNotes.notes}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 } 

@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { DaySchedule } from './components/DaySchedule';
+import Link from 'next/link';
 
 export default function Home() {
   const days = Object.keys(schedule).map(Number);
@@ -10,7 +11,15 @@ export default function Home() {
   return (
     <main className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900">Holiday Planner</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900">Holiday Planner</h1>
+          <Link 
+            href="/summary" 
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+          >
+            View Summary
+          </Link>
+        </div>
         
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-3">Categories</h2>
@@ -28,13 +37,17 @@ export default function Home() {
         </div>
 
         <Tabs defaultValue={days[0].toString()} className="w-full">
-          <TabsList className="mb-4">
-            {days.map((day) => (
-              <TabsTrigger key={day} value={day.toString()}>
-                Day {day}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="relative">
+            <div className="overflow-x-auto no-scrollbar">
+              <TabsList className="mb-4 w-max border-b border-b-transparent">
+                {days.map((day) => (
+                  <TabsTrigger key={day} value={day.toString()}>
+                    Day {day}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+          </div>
 
           {days.map((day) => (
             <TabsContent key={day} value={day.toString()}>
