@@ -147,7 +147,7 @@ export function DaySchedule({
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (activity.notes) {
+                      if (activity.notes || activity.mapUrl) {
                         setShowNotes(activity);
                       } else {
                         setSelectedActivity(isSelected ? null : index);
@@ -168,6 +168,13 @@ export function DaySchedule({
                           isSelected && isShort && "text-[10px] mb-0.5"
                         )}>
                           {activity.label}
+                          {activity.mapUrl && (
+                            <span className="ml-1 inline-flex items-center">
+                              <svg className="w-2 h-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                              </svg>
+                            </span>
+                          )}
                         </div>
                         <div 
                           className={cn(
@@ -209,7 +216,11 @@ export function DaySchedule({
               style={{
                 backgroundColor: colors[activity.category],
               }}
-              onClick={() => activity.notes && setShowNotes(activity)}
+              onClick={() => {
+                if (activity.notes || activity.mapUrl) {
+                  setShowNotes(activity);
+                }
+              }}
             >
               <div className={cn(
                 "absolute inset-0 text-white",
@@ -219,7 +230,14 @@ export function DaySchedule({
                   "font-semibold flex items-center justify-between",
                   isCompact && "text-sm"
                 )}>
-                  {activity.label}
+                  <span className="flex items-center">
+                    {activity.label}
+                    {activity.mapUrl && (
+                      <svg className="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                      </svg>
+                    )}
+                  </span>
                   {activity.notes && (
                     <svg 
                       className="w-4 h-4 opacity-75" 
@@ -284,6 +302,48 @@ export function DaySchedule({
                 showNotes?.duration || 0
               )}
             </div>
+            {showNotes?.mapUrl && (
+              <div className="text-sm mt-2">
+                <a 
+                  href={showNotes.mapUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 flex items-center"
+                >
+                  <svg 
+                    className="w-4 h-4 mr-1" 
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                  {showNotes.category === "Hiking" 
+                    ? "View Trailhead Parking on Google Maps" 
+                    : "View on Google Maps"}
+                </a>
+              </div>
+            )}
+            
+            {showNotes?.category === "Hiking" && showNotes?.allTrailsUrl && (
+              <div className="text-sm mt-2">
+                <a 
+                  href={showNotes.allTrailsUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-green-600 hover:text-green-800 flex items-center"
+                >
+                  <svg 
+                    className="w-4 h-4 mr-1" 
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4.5 9.5c0 1.1-.9 2-2 2s-2-.9-2-2h-4c0 1.1-.9 2-2 2s-2-.9-2-2H4v-3h1v-4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v4h1v3h-1.5z" />
+                  </svg>
+                  View Trail on AllTrails
+                </a>
+              </div>
+            )}
+
             {showNotes?.notes && (
               <div className="text-sm whitespace-pre-wrap border-t pt-2 mt-2">
                 {showNotes.notes}
