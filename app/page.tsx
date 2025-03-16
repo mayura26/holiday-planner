@@ -13,12 +13,20 @@ export default function Home() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900">Holiday Planner</h1>
-          <Link 
-            href="/summary" 
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-          >
-            View Summary
-          </Link>
+          <div className="flex gap-3">
+            <Link 
+              href="/schedule/edit" 
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Edit Schedule
+            </Link>
+            <Link 
+              href="/summary" 
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+            >
+              View Summary
+            </Link>
+          </div>
         </div>
         
         <div className="mb-6">
