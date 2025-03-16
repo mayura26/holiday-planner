@@ -58,7 +58,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Seven Sacred Pools Hike", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Seven+Sacred+Pools+Trailhead+Parking+Sedona+AZ",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/arizona/soldier-pass-trail-to-seven-sacred-pools",
+      allTrailsUrl: "https://www.alltrails.com/trail/us/arizona/seven-sacred-pools-trail",
       notes: "Easy 1.1-mile hike via Soldier Pass Trail. Trail is suitable for all skill levels. Shared with Jeep traffic. Best in spring when pools have water. Download trail map in advance as some junctions lack clear signage."
     },
     { 
@@ -87,7 +87,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Devil's Bridge Hike", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Devils+Bridge+Trailhead+Parking+Sedona+AZ",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/arizona/devils-bridge-trail",
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/arizona/devils-bridge-trail",
       notes: "Moderate 4-mile round trip hike with 400 ft elevation gain. Popular spot for photos on the natural bridge. Early start recommended to avoid crowds."
     },
     { 
@@ -111,7 +111,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "South Kaibab Trail Hike (Ooh Aah Point)", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=South+Kaibab+Trailhead+Parking+Grand+Canyon",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/arizona/south-kaibab-trail-to-ooh-aah-point",
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/arizona/south-kaibab-trail-to-ooh-aah-point",
       notes: "Moderate 1.8-mile round trip hike to Ooh Aah Point. 600 ft elevation change. No water available on trail. Use shuttle to trailhead as no private vehicles allowed."
     },
     { 
@@ -133,7 +133,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Grand Canyon Rim Trail Walk", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Grand+Canyon+Visitor+Center+Parking",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/arizona/grand-canyon-rim-trail-to-hermits-rest"
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/arizona/grand-canyon-rim-trail-to-hermits-rest"
     },
     { 
       startTime: 9.5, 
@@ -184,7 +184,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Horseshoe Bend Hike", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Horseshoe+Bend+Parking+Lot+Page+AZ",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/arizona/horseshoe-bend-trail",
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/arizona/horseshoe-bend-trail",
       notes: "Easy 1.5-mile round trip hike. $10 parking fee. Bring water and sun protection. Best lighting for photos in late afternoon."
     },
     { 
@@ -211,7 +211,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Antelope Canyon Tour", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Antelope+Canyon+Tours+Parking+Page+AZ",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/arizona/upper-antelope-canyon-trail",
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/arizona/upper-antelope-canyon-trail",
       notes: "Upper Antelope Canyon tour. Moderate 0.5-mile walk through slot canyon. No backpacks allowed. Navajo guide will point out best photo spots."
     },
     { startTime: 10.75, duration: 0.5, label: "Pick up Grab-and-Go Sandwiches", category: "Eating" },
@@ -279,7 +279,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Hike Fisher Towers", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Fisher+Towers+Trailhead+Parking+Utah",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/utah/fisher-towers-trail"
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/utah/fisher-towers-trail"
     },
     { 
       startTime: 16.0, 
@@ -330,7 +330,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Windows & Turret Arch Loop", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=The+Windows+Trailhead+Parking+Arches+National+Park",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/utah/the-windows-loop-and-turret-arch"
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/utah/the-windows-loop-and-turret-arch"
     },
     { startTime: 10.0, duration: 0.5, label: "Quick Stop at Balanced Rock", category: "Other" },
     { 
@@ -339,7 +339,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Hike to Landscape Arch", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Devils+Garden+Trailhead+Parking+Arches+National+Park",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/utah/landscape-arch-trail"
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/utah/landscape-arch-trail"
     },
     { startTime: 12.0, duration: 0.75, label: "Lunch at Devil's Garden", category: "Eating" },
     { startTime: 12.75, duration: 1.75, label: "Return to Moab (Rest Break)", category: "Hotel/Rest" },
@@ -356,7 +356,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Sand Dune Arch Hike", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Sand+Dune+Arch+Parking+Arches+National+Park",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/utah/sand-dune-arch-trail"
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/utah/sand-dune-arch-trail"
     },
     { 
       startTime: 15.75, 
@@ -364,7 +364,7 @@ export const schedule: Record<number, DaySchedule> = {
       label: "Delicate Arch Hike", 
       category: "Hiking", 
       mapUrl: "https://maps.google.com/?q=Delicate+Arch+Trailhead+Parking+Arches+National+Park",
-      allTrailsUrl: "https://www.alltrails.com/trail/us/utah/delicate-arch-trail",
+      allTrailsUrl: "https://www.alltrails.com/explore/trail/us/utah/delicate-arch-trail",
       notes: "Moderate to difficult 3-mile round trip hike with 480 ft elevation gain. Exposed trail with little shade. Bring at least 1 liter of water per person."
     },
     { startTime: 17.25, duration: 0.75, label: "Option: Sunset at The Windows", category: "Other" },
