@@ -110,7 +110,7 @@ export function DaySchedule({
                   }}
                 >
                   <div className={cn(
-                    "absolute right-full pr-1 translate-y-1 translate-x-8 whitespace-nowrap text-gray-500",
+                    "absolute right-full pr-1 translate-y-1 translate-x-10 whitespace-nowrap text-gray-500",
                     isCompact ? "text-[8px]" : "text-xs"
                   )}>
                     {formatTime(hour)}
