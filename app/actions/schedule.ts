@@ -1,52 +1,81 @@
 'use server';
 
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
 import { Activity, DaySchedule } from '../data/schedule';
+import { revalidatePath } from 'next/cache';
 
-export async function saveSchedule(schedule: Record<number, DaySchedule>) {
+// Get the file path for the schedule data
+const getScheduleFilePath = () => {
+  return path.join(process.cwd(), 'app/data/schedule-data.json');
+};
+
+export async function loadSchedule() {
   try {
-    // Format the schedule data as a TypeScript file
-    const scheduleContent = `export type Activity = {
-  startTime: number;
-  duration: number;
-  label: string;
-  category: Category;
-  notes?: string;
-  mapUrl?: string;
-  allTrailsUrl?: string;
-};
+    const filePath = getScheduleFilePath();
+    
+    // Check if the file exists
+    if (!fs.existsSync(filePath)) {
+      // If not, return an empty schedule
+      return { 
+        success: true, 
+        data: {} as Record<number, DaySchedule>
+      };
+    }
+    
+    // Read the schedule from the file
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const data = JSON.parse(fileContent);
+    
+    return { 
+      success: true, 
+      data
+    };
+  } catch (error) {
+    console.error('Error reading schedule file:', error);
+    return { 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+      data: {} as Record<number, DaySchedule>  // Provide empty data on error
+    };
+  }
+}
 
-export type Category =
-  | "Driving"
-  | "Hiking"
-  | "Rafting"
-  | "Eating"
-  | "Hotel/Rest"
-  | "Other"
-
-
-export type DaySchedule = Activity[];
-
-export const colors: Record<Category, string> = {
-  "Driving": "#B91C1C", // Darker red
-  "Hiking": "#2F855A", // Darker green
-  "Rafting": "#2B6CB0", // Darker blue
-  "Eating": "#6B46C1", // Darker purple
-  "Hotel/Rest": "#4A5568", // Darker yellow/gold
-  "Other": "#065F60" // Darker teal
-};
-
-export const schedule: Record<number, DaySchedule> = ${JSON.stringify(schedule, null, 2)};
-`;
-
-    // Write to the schedule.ts file
-    const filePath = path.join(process.cwd(), 'app', 'data', 'schedule.ts');
-    await fs.writeFile(filePath, scheduleContent);
-
+export async function saveSchedule(scheduleData: Record<number, Activity[]>) {
+  try {
+    const filePath = getScheduleFilePath();
+    
+    // Ensure the directory exists
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    
+    // Write the schedule to the file
+    fs.writeFileSync(filePath, JSON.stringify(scheduleData, null, 2), 'utf8');
+    
     return { success: true };
   } catch (error) {
-    console.error('Error saving schedule:', error);
-    return { success: false, error: (error as Error).message };
+    console.error('Error saving schedule file:', error);
+    return { 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
+    };
+  }
+}
+
+// New action to revalidate specific paths
+export async function revalidateSchedulePaths() {
+  try {
+    // Revalidate the home page and summary page
+    revalidatePath('/');
+    revalidatePath('/summary');
+    return { success: true };
+  } catch (error) {
+    console.error('Error revalidating paths:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
+    };
   }
 } 

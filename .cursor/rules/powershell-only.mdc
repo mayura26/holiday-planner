@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Powershell only
+
+- Only generate powershell scripts as this is a window environment

@@ -1,24 +1,31 @@
 import { HolidaySummary } from '../components/HolidaySummary';
-import { schedule } from '../data/schedule';
+import { loadSchedule } from '../actions/schedule';
+import { Activity } from '../data/schedule';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
-export default function SummaryPage() {
-  // Transform the schedule record into an array of day objects
+// Revalidate the page every 60 seconds instead of on every request
+// This provides a balance between performance and fresh data
+export const revalidate = 60;
+
+export default async function SummaryPage() {
+  const { data: schedule, success } = await loadSchedule();
+  
+  // Transform the schedule record into an array of day objects with the correct type
   const scheduleArray = Object.entries(schedule).map(([day, activities]) => ({
     day: parseInt(day),
-    activities
+    activities: activities as Activity[]
   }));
 
   return (
-    <main className="min-h-screen p-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">Holiday Summary</h1>
-          <Link 
-            href="/" 
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-          >
-            Back to Schedule
+    <main className="container mx-auto py-8">
+      <div>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+          <h1 className="text-3xl font-bold">Holiday Summary</h1>
+          <Link href="/">
+            <Button variant="outline">
+              Back to Schedule
+            </Button>
           </Link>
         </div>
         <HolidaySummary schedule={scheduleArray} />
