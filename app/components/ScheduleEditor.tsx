@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DaySchedule } from './DaySchedule';
-import { PlusCircle, Trash2, Save, Loader2, Home } from 'lucide-react';
+import { PlusCircle, Trash2, Save, Loader2, Home, Upload, Download } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChangeEvent } from 'react';
@@ -28,6 +28,9 @@ export function ScheduleEditor() {
   const [isSaving, setIsSaving] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [importDialogOpen, setImportDialogOpen] = useState(false);
+  const [importData, setImportData] = useState('');
+  const [importError, setImportError] = useState('');
   const router = useRouter();
 
   // Load schedule from disk when component mounts
@@ -174,6 +177,96 @@ export function ScheduleEditor() {
     return hours + (minutes / 60);
   }
 
+  function handleExportSchedule() {
+    try {
+      // Convert the schedule to JSON
+      const scheduleJson = JSON.stringify(currentSchedule, null, 2);
+      
+      // Create a blob with the JSON data
+      const blob = new Blob([scheduleJson], { type: 'application/json' });
+      
+      // Create a URL for the blob
+      const url = URL.createObjectURL(blob);
+      
+      // Create a temporary anchor element and trigger download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schedule.json';
+      document.body.appendChild(a);
+      a.click();
+      
+      // Clean up
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      toast.success("Schedule exported", { duration: 1000 });
+    } catch (error) {
+      console.error('Error exporting schedule:', error);
+      toast.error("Error exporting schedule", {
+        description: (error as Error).message || "An unexpected error occurred"
+      });
+    }
+  }
+
+  function handleImportSchedule() {
+    try {
+      setImportError('');
+      
+      if (!importData.trim()) {
+        setImportError('Please paste JSON data');
+        return;
+      }
+      
+      // Parse the JSON data
+      const parsedData = JSON.parse(importData);
+      
+      // Basic validation: ensure it's an object with numeric keys
+      if (typeof parsedData !== 'object' || parsedData === null || Array.isArray(parsedData)) {
+        setImportError('Invalid schedule format');
+        return;
+      }
+      
+      // Validate each day's activities
+      for (const day in parsedData) {
+        if (!Array.isArray(parsedData[day])) {
+          setImportError(`Day ${day} activities should be an array`);
+          return;
+        }
+        
+        for (const activity of parsedData[day]) {
+          if (typeof activity !== 'object' || activity === null) {
+            setImportError(`Invalid activity in day ${day}`);
+            return;
+          }
+          
+          if (typeof activity.label !== 'string' || 
+              typeof activity.startTime !== 'number' || 
+              typeof activity.duration !== 'number' ||
+              !Object.keys(colors).includes(activity.category)) {
+            setImportError(`Invalid activity data in day ${day}`);
+            return;
+          }
+        }
+      }
+      
+      // Update the schedule
+      setCurrentSchedule(parsedData);
+      setImportDialogOpen(false);
+      setImportData('');
+      
+      // If we just imported a schedule and the current selected day doesn't exist,
+      // select the first day
+      if (!parsedData[selectedDay] && Object.keys(parsedData).length > 0) {
+        setSelectedDay(Object.keys(parsedData)[0]);
+      }
+      
+      toast.success("Schedule imported", { duration: 1000 });
+    } catch (error) {
+      console.error('Error importing schedule:', error);
+      setImportError('Invalid JSON data');
+    }
+  }
+
   return (
     <div className="container mx-auto py-4 sm:py-6 space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
@@ -197,6 +290,77 @@ export function ScheduleEditor() {
               </>
             )}
           </Button>
+          
+          {/* Export and Import Buttons */}
+          <Button 
+            onClick={handleExportSchedule} 
+            size="sm"
+            variant="outline"
+            className="text-xs sm:text-sm h-8 sm:h-10 flex items-center gap-1 sm:gap-2"
+            disabled={isLoading || Object.keys(currentSchedule).length === 0}
+          >
+            <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">Export</span>
+          </Button>
+          
+          <Dialog open={importDialogOpen} onOpenChange={setImportDialogOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                size="sm"
+                variant="outline"
+                className="text-xs sm:text-sm h-8 sm:h-10 flex items-center gap-1 sm:gap-2"
+                disabled={isLoading}
+              >
+                <Upload className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline">Import</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[500px] w-[80vw] mx-auto max-h-[90vh] overflow-y-auto p-2 sm:p-6">
+              <DialogHeader className="pb-1 sm:pb-2">
+                <DialogTitle className="text-sm sm:text-xl">Import Schedule</DialogTitle>
+              </DialogHeader>
+              
+              <div className="grid gap-2 sm:gap-5 py-1 sm:py-2">
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="importData" className="text-xs sm:text-sm font-medium">
+                    Paste JSON Data
+                  </Label>
+                  <Textarea
+                    id="importData"
+                    value={importData}
+                    onChange={(e) => setImportData(e.target.value)}
+                    className="w-full text-xs sm:text-sm font-mono"
+                    rows={10}
+                    placeholder="Paste your schedule JSON here..."
+                  />
+                  {importError && (
+                    <p className="text-xs text-red-500">{importError}</p>
+                  )}
+                </div>
+              </div>
+              
+              <DialogFooter className="flex-col gap-2 pt-2 sm:pt-4 sm:flex-row sm:gap-0">
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setImportDialogOpen(false);
+                    setImportData('');
+                    setImportError('');
+                  }} 
+                  className="w-full h-8 sm:h-10 text-xs sm:text-sm sm:w-auto"
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={handleImportSchedule} 
+                  className="w-full h-8 sm:h-10 text-xs sm:text-sm sm:w-auto"
+                >
+                  Import
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+          
           <Button 
             onClick={handleSaveSchedule} 
             size="sm"
