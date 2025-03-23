@@ -55,7 +55,7 @@ export default async function Home() {
                 <DaySchedule
                   day={Number(day)}
                   activities={schedule[Number(day)] || []}
-                  defaultShowTimescale={true}
+                  defaultShowTimescale={false}
                 />
               </TabsContent>
             ))}
