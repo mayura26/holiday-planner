@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Holiday Planner",
-  description: "Plan your perfect holiday itinerary",
+  description: "Plan your perfect holiday itinerary"
 };
 
 export default function RootLayout({
@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Holiday Planner" />
+      </head>
       <body className={inter.className}>
         {children}
         <Toaster position="top-right" />
