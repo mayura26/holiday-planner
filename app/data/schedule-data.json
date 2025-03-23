@@ -340,24 +340,24 @@
     },
     {
       "startTime": 12,
-      "duration": 0.5,
+      "duration": 1,
       "label": "Dry Off & Snack/Coffee",
       "category": "Eating"
     },
     {
-      "startTime": 12.5,
-      "duration": 0.5,
-      "label": "Drive to Fisher Towers",
-      "category": "Driving",
-      "mapUrl": "https://maps.google.com/?q=Moab+to+Fisher+Towers+UT"
+      "startTime": 13,
+      "duration": 0.75,
+      "label": "Drive to White Rim Trail",
+      "category": "Driving", 
+      "mapUrl": "https://maps.google.com/?q=Moab+to+White+Rim+Trail+Canyonlands"
     },
     {
-      "startTime": 13,
-      "duration": 3,
-      "label": "Hike Fisher Towers",
+      "startTime": 13.75,
+      "duration": 2.75,
+      "label": "Hike White Rim Trail",
       "category": "Hiking",
-      "mapUrl": "https://maps.google.com/?q=Fisher+Towers+Trailhead+Parking+Utah",
-      "allTrailsUrl": "https://www.alltrails.com/explore/trail/us/utah/fisher-towers-trail"
+      "mapUrl": "https://maps.google.com/?q=White+Rim+Trail+Canyonlands",
+      "allTrailsUrl": "https://www.alltrails.com/explore/trail/us/utah/white-rim-trail"
     },
     {
       "startTime": 16,
