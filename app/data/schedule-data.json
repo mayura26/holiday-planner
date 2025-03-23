@@ -347,18 +347,18 @@
     {
       "startTime": 13,
       "duration": 0.75,
-      "label": "Drive to White Rim Trail",
+      "label": "Drive to White Rim Overlook Trail",
       "category": "Driving", 
-      "mapUrl": "https://maps.google.com/?q=Moab+to+White+Rim+Trail+Canyonlands"
+      "mapUrl": "https://maps.google.com/?q=Moab+to+White+Rim+Overlook+Trail+Canyonlands+National+Park"
     },
     {
       "startTime": 13.75,
-      "duration": 2.75,
-      "label": "Hike White Rim Trail",
+      "duration": 1.5,
+      "label": "Hike White Rim Overlook Trail",
       "category": "Hiking",
-      "mapUrl": "https://maps.google.com/?q=White+Rim+Trail+Canyonlands",
-      "allTrailsUrl": "https://www.alltrails.com/explore/trail/us/utah/white-rim-trail",
-      "notes": "Easy 1.8-mile round trip hike with stunning views of the canyons and Colorado River. Trail is well maintained and suitable for most skill levels."
+      "mapUrl": "https://maps.google.com/?q=White+Rim+Overlook+Trail+Canyonlands",
+      "allTrailsUrl": "https://www.alltrails.com/trail/us/utah/white-rim-overlook-trail",
+      "notes": "Easy 1.8-mile round trip hike with stunning views of the White Rim formation, Monument Basin, and La Sal Mountains. Trail is well maintained with minimal elevation gain, suitable for most skill levels."
     },
     {
       "startTime": 16,
