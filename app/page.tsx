@@ -9,6 +9,24 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 // This provides a balance between performance and fresh data
 export const revalidate = 60;
 
+function formatDate(dateString: string): string {
+  // Manual date formatting to avoid any timezone issues
+  const [year, month, day] = dateString.split('-').map(Number);
+  
+  // Manual weekday calculation for 2025
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  // Calculate day of week manually for 2025
+  // September 1, 2025 is a Monday
+  const startDate = new Date(2025, 8, 1); // Month is 0-indexed, so 8 = September
+  const targetDate = new Date(year, month - 1, day);
+  const daysDiff = Math.floor((targetDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+  const weekdayIndex = (1 + daysDiff) % 7; // Monday = 1, so we adjust
+  
+  return `${weekdays[weekdayIndex]}, ${months[month - 1]} ${day}`;
+}
+
 export default async function Home() {
   const { data: schedule, success } = await loadSchedule();
   const days = Object.keys(schedule).sort((a, b) => Number(a) - Number(b));
@@ -38,15 +56,21 @@ export default async function Home() {
           <Tabs defaultValue={days[0]} className="w-full">
             <div className="w-full overflow-x-auto pb-1">
               <TabsList className="flex w-full min-w-max">
-                {days.map(day => (
-                  <TabsTrigger 
-                    key={day} 
-                    value={day} 
-                    className="flex-1 text-xs sm:text-sm py-1 sm:py-2 px-2 sm:px-4 min-w-[60px]"
-                  >
-                    Day {day}
-                  </TabsTrigger>
-                ))}
+                {days.map(day => {
+                  const dayActivities = schedule[Number(day)] || [];
+                  const firstActivity = dayActivities[0];
+                  const displayText = firstActivity?.date ? formatDate(firstActivity.date) : `Day ${day}`;
+                  
+                  return (
+                    <TabsTrigger 
+                      key={day} 
+                      value={day} 
+                      className="flex-1 text-xs sm:text-sm py-1 sm:py-2 px-2 sm:px-4 min-w-[60px]"
+                    >
+                      {displayText}
+                    </TabsTrigger>
+                  );
+                })}
               </TabsList>
             </div>
             

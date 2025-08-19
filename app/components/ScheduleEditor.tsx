@@ -19,6 +19,24 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { loadSchedule, saveSchedule, revalidateSchedulePaths } from '../actions/schedule';
 
+function formatDate(dateString: string): string {
+  // Manual date formatting to avoid any timezone issues
+  const [year, month, day] = dateString.split('-').map(Number);
+  
+  // Manual weekday calculation for 2025
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  // Calculate day of week manually for 2025
+  // September 1, 2025 is a Monday
+  const startDate = new Date(2025, 8, 1); // Month is 0-indexed, so 8 = September
+  const targetDate = new Date(year, month - 1, day);
+  const daysDiff = Math.floor((targetDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+  const weekdayIndex = (1 + daysDiff) % 7; // Monday = 1, so we adjust
+  
+  return `${weekdays[weekdayIndex]}, ${months[month - 1]} ${day}`;
+}
+
 export function ScheduleEditor() {
   const [currentSchedule, setCurrentSchedule] = useState<Record<number, Activity[]>>({});
   const [selectedDay, setSelectedDay] = useState("1");
@@ -112,6 +130,20 @@ export function ScheduleEditor() {
 
   function handleAddDay() {
     const newDayNumber = Math.max(...days.map(Number)) + 1;
+    
+    // Calculate the next date based on the last day's date
+    let nextDate = "2025-09-01"; // Default start date
+    if (days.length > 0) {
+      const lastDayNumber = Math.max(...days.map(Number));
+      const lastDayActivities = currentSchedule[lastDayNumber] || [];
+      const lastActivity = lastDayActivities[0];
+      if (lastActivity?.date) {
+        const lastDate = new Date(lastActivity.date);
+        lastDate.setDate(lastDate.getDate() + 1);
+        nextDate = lastDate.toISOString().split('T')[0];
+      }
+    }
+    
     setCurrentSchedule({
       ...currentSchedule,
       [newDayNumber]: []
@@ -242,6 +274,7 @@ export function ScheduleEditor() {
           if (typeof activity.label !== 'string' || 
               typeof activity.startTime !== 'number' || 
               typeof activity.duration !== 'number' ||
+              typeof activity.date !== 'string' ||
               !Object.keys(colors).includes(activity.category)) {
             setImportError(`Invalid activity data in day ${day}`);
             return;
@@ -392,15 +425,21 @@ export function ScheduleEditor() {
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-2 sm:mb-4">
             <div className="w-full overflow-x-auto pb-1">
               <TabsList className="flex w-full min-w-max">
-                {days.map(day => (
-                  <TabsTrigger 
-                    key={day} 
-                    value={day} 
-                    className="flex-1 text-xs sm:text-sm py-1 sm:py-2 px-2 sm:px-4 min-w-[60px]"
-                  >
-                    Day {day}
-                  </TabsTrigger>
-                ))}
+                {days.map(day => {
+                  const dayActivities = currentSchedule[Number(day)] || [];
+                  const firstActivity = dayActivities[0];
+                  const displayText = firstActivity?.date ? formatDate(firstActivity.date) : `Day ${day}`;
+                  
+                  return (
+                    <TabsTrigger 
+                      key={day} 
+                      value={day} 
+                      className="flex-1 text-xs sm:text-sm py-1 sm:py-2 px-2 sm:px-4 min-w-[60px]"
+                    >
+                      {displayText}
+                    </TabsTrigger>
+                  );
+                })}
               </TabsList>
             </div>
             <div className="flex gap-2 sm:ml-4">
@@ -428,7 +467,29 @@ export function ScheduleEditor() {
                             size="sm" 
                             className="h-7 sm:h-9 text-xs sm:text-sm"
                             onClick={() => {
+                              const dayActivities = currentSchedule[Number(selectedDay)] || [];
+                              let defaultDate = "2025-09-01";
+                              
+                              if (dayActivities.length > 0) {
+                                const firstActivity = dayActivities[0];
+                                defaultDate = firstActivity?.date || "2025-09-01";
+                              } else {
+                                // If no activities exist for this day, calculate the date based on day number
+                                const dayNumber = Number(selectedDay);
+                                if (dayNumber > 1) {
+                                  const previousDay = dayNumber - 1;
+                                  const previousDayActivities = currentSchedule[previousDay] || [];
+                                  const previousActivity = previousDayActivities[0];
+                                  if (previousActivity?.date) {
+                                    const prevDate = new Date(previousActivity.date);
+                                    prevDate.setDate(prevDate.getDate() + 1);
+                                    defaultDate = prevDate.toISOString().split('T')[0];
+                                  }
+                                }
+                              }
+                              
                               setEditingActivity({
+                                date: defaultDate,
                                 startTime: 8,
                                 duration: 1,
                                 label: "",
@@ -545,6 +606,7 @@ interface ActivityDialogProps {
 function ActivityDialog({ activity, onSave, onCancel, formatTime, parseTime }: ActivityDialogProps) {
   const [formData, setFormData] = useState<Activity>(
     activity || {
+      date: "2025-09-01",
       startTime: 8,
       duration: 1,
       label: "",
@@ -579,6 +641,20 @@ function ActivityDialog({ activity, onSave, onCancel, formatTime, parseTime }: A
             id="label"
             value={formData.label}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({...formData, label: e.target.value})}
+            className="w-full h-8 sm:h-10 text-xs sm:text-sm"
+          />
+        </div>
+        
+        {/* Date */}
+        <div className="space-y-1 sm:space-y-2">
+          <Label htmlFor="date" className="text-xs sm:text-sm font-medium">
+            Date
+          </Label>
+          <Input
+            id="date"
+            type="date"
+            value={formData.date}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({...formData, date: e.target.value})}
             className="w-full h-8 sm:h-10 text-xs sm:text-sm"
           />
         </div>

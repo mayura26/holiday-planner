@@ -1,4 +1,5 @@
 export type Activity = {
+  date: string;
   startTime: number;
   duration: number;
   label: string;
@@ -14,6 +15,9 @@ export type Category =
   | "Rafting"
   | "Eating"
   | "Hotel/Rest"
+  | "Flight"
+  | "Transport"
+  | "Sightseeing"
   | "Other"
 
 
@@ -25,6 +29,9 @@ export const colors: Record<Category, string> = {
   "Rafting": "#2B6CB0", // Darker blue
   "Eating": "#6B46C1", // Darker purple
   "Hotel/Rest": "#4A5568", // Darker yellow/gold
+  "Flight": "#DC2626", // Bright red for flights
+  "Transport": "#059669", // Green for transport
+  "Sightseeing": "#7C3AED", // Purple for sightseeing
   "Other": "#065F60" // Darker teal
 };
 

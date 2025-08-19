@@ -36,6 +36,24 @@ function formatTimeRange(startTime: number, endTime: number, duration: number): 
   return `${start} - ${end} (${formatDuration(duration)})`;
 }
 
+function formatDate(dateString: string): string {
+  // Manual date formatting to avoid any timezone issues
+  const [year, month, day] = dateString.split('-').map(Number);
+  
+  // Manual weekday calculation for 2025
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  // Calculate day of week manually for 2025
+  // September 1, 2025 is a Monday
+  const startDate = new Date(2025, 8, 1); // Month is 0-indexed, so 8 = September
+  const targetDate = new Date(year, month - 1, day);
+  const daysDiff = Math.floor((targetDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+  const weekdayIndex = (1 + daysDiff) % 7; // Monday = 1, so we adjust
+  
+  return `${weekdays[weekdayIndex]}, ${months[month - 1]} ${day}`;
+}
+
 export function DaySchedule({ 
   day, 
   activities, 
@@ -60,7 +78,11 @@ export function DaySchedule({
 
   // Calculate time range for visualization
   const startTime = globalStartTime ?? Math.min(...activities.map(a => a.startTime));
-  const endTime = globalEndTime ?? Math.max(...activities.map(a => a.startTime + a.duration));
+  const endTime = globalEndTime ?? Math.max(...activities.map(a => {
+    // Handle cross-midnight events by capping at 24 hours
+    const calculatedEnd = a.startTime + a.duration;
+    return calculatedEnd > 24 ? 24 : calculatedEnd;
+  }));
   const totalTimeRange = endTime - startTime;
   const hourMarkers = Array.from(
     { length: Math.ceil(endTime) - Math.floor(startTime) + 1 },
@@ -76,7 +98,7 @@ export function DaySchedule({
         <h3 className={cn(
           "font-bold",
           isCompact ? "text-base" : "text-2xl"
-        )}>Day {day}</h3>
+        )}>{formatDate(activities[0]?.date || '')}</h3>
         <div className="flex items-center gap-2">
           <div className="flex items-center space-x-1">
             <Switch
@@ -125,9 +147,14 @@ export function DaySchedule({
               onClick={() => setSelectedActivity(null)}
             >
               {activities.map((activity, index) => {
-                const endTime = activity.startTime + activity.duration;
+                const calculatedEndTime = activity.startTime + activity.duration;
+                const endTime = calculatedEndTime > 24 ? 24 : calculatedEndTime;
+                const isCrossMidnight = calculatedEndTime > 24;
                 const top = ((activity.startTime - startTime) / totalTimeRange) * 100;
-                const height = (activity.duration / totalTimeRange) * 100;
+                const height = Math.max(
+                  ((endTime - activity.startTime) / totalTimeRange) * 100,
+                  isCrossMidnight ? 15 : 3 // Minimum height for cross-midnight events
+                );
                 const isShort = height < 4;
                 const isSelected = selectedActivity === index;
 
@@ -187,7 +214,10 @@ export function DaySchedule({
                               : "text-[10px] mt-auto"
                           )}
                         >
-                          {formatTimeRange(activity.startTime, endTime, activity.duration)}
+                          {isCrossMidnight 
+                            ? `${formatTime(activity.startTime)} - ${formatTime(calculatedEndTime - 24)} next day (${formatDuration(activity.duration)})`
+                            : formatTimeRange(activity.startTime, endTime, activity.duration)
+                          }
                           {isSelected && activity.notes && (
                             <div className="mt-1 text-[9px] opacity-90 whitespace-pre-wrap">
                               {activity.notes}
@@ -204,7 +234,9 @@ export function DaySchedule({
         )}
         
         {!showTimescale && activities.map((activity, index) => {
-          const endTime = activity.startTime + activity.duration;
+          const calculatedEndTime = activity.startTime + activity.duration;
+          const endTime = calculatedEndTime > 24 ? 24 : calculatedEndTime;
+          const isCrossMidnight = calculatedEndTime > 24;
 
           return (
             <div 
@@ -253,7 +285,10 @@ export function DaySchedule({
                   "opacity-90",
                   isCompact ? "text-xs" : "text-sm"
                 )}>
-                  {formatTimeRange(activity.startTime, endTime, activity.duration)}
+                  {isCrossMidnight 
+                    ? `${formatTime(activity.startTime)} - ${formatTime(calculatedEndTime - 24)} next day (${formatDuration(activity.duration)})`
+                    : formatTimeRange(activity.startTime, endTime, activity.duration)
+                  }
                 </div>
               </div>
             </div>
@@ -296,11 +331,18 @@ export function DaySchedule({
               {showNotes?.category}
             </div>
             <div className="text-sm">
-              {formatTimeRange(
-                showNotes?.startTime || 0,
-                (showNotes?.startTime || 0) + (showNotes?.duration || 0),
-                showNotes?.duration || 0
-              )}
+              {(() => {
+                const startTime = showNotes?.startTime || 0;
+                const duration = showNotes?.duration || 0;
+                const calculatedEndTime = startTime + duration;
+                const isCrossMidnight = calculatedEndTime > 24;
+                
+                if (isCrossMidnight) {
+                  return `${formatTime(startTime)} - ${formatTime(calculatedEndTime - 24)} next day (${formatDuration(duration)})`;
+                } else {
+                  return formatTimeRange(startTime, calculatedEndTime, duration);
+                }
+              })()}
             </div>
             {showNotes?.mapUrl && (
               <div className="text-sm mt-2">
