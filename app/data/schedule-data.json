@@ -2,19 +2,19 @@
   "1": [
     {
       "date": "2025-09-01",
-      "startTime": 20,
-      "duration": 0.5,
-      "label": "Check-in at YYZ Terminal 3",
-      "category": "Flight",
-      "notes": "WESTJET Flight WS 34 - Toronto to Dublin. Arrive at least 2 hours before departure. Terminal 3, Toronto Pearson International Airport."
+      "startTime": 19,
+      "duration": 1,
+      "label": "Travel to Airport",
+      "category": "Transport",
+      "notes": "Travel from home to Toronto Pearson International Airport (YYZ). Allow 1 hour for travel time to ensure arrival with sufficient buffer."
     },
     {
       "date": "2025-09-01",
-      "startTime": 20.5,
-      "duration": 0.5,
-      "label": "Security & Boarding",
+      "startTime": 20,
+      "duration": 2,
+      "label": "Airport Arrival & Security",
       "category": "Flight",
-      "notes": "Security screening and final boarding procedures. Flight departs at 22:10 (10:10 PM)."
+      "notes": "Arrive at YYZ Terminal 3. Allow 2 hours for security screening, check-in procedures, and boarding preparation before the 22:10 departure."
     },
     {
       "date": "2025-09-01",
@@ -36,59 +36,99 @@
     },
     {
       "date": "2025-09-02",
-      "startTime": 11,
-      "duration": 0.5,
-      "label": "Transport to Hotel",
+      "startTime": 12,
+      "duration": 1,
+      "label": "Pick up Rental Car",
       "category": "Transport",
-      "notes": "Take Airport Express bus or taxi to Dublin city center. Bus 747 or 757 to city center, or taxi approximately €25-35."
+      "notes": "Pick up Toyota Auris (manual transmission) from Budget at Dublin Airport. Confirmation: 30188241CA6. Bring valid driver's license and passport. Unlimited kilometers. Drop off: Galway Downtown on Sep 04 at 12:00 PM."
     },
     {
       "date": "2025-09-02",
-      "startTime": 11.5,
+      "startTime": 15,
       "duration": 1,
-      "label": "Hotel Check-in",
+      "label": "Check-in at Wicklow Town Accommodation",
       "category": "Hotel/Rest",
-      "notes": "Check into hotel in Dublin city center. Drop luggage and freshen up after the overnight flight."
-    },
+      "notes": "Check-in at 3-bedroom family home with sea and mountain view in Wicklow Town. Host: Gianpaolo. Check-in after 3:00 PM. Pets allowed, quiet hours 9:00 PM - 9:00 AM."
+    }
+  ],
+  "4": [
     {
-      "date": "2025-09-02",
-      "startTime": 12.5,
+      "date": "2025-09-04",
+      "startTime": 12,
       "duration": 1,
-      "label": "Light Lunch",
-      "category": "Eating",
-      "notes": "Quick lunch at a nearby café or pub to get oriented with the area."
-    },
+      "label": "Return Rental Car",
+      "category": "Transport",
+      "notes": "Return Toyota Auris to Budget at Galway Downtown location (12 Eyre Square). Return by 12:00 PM. Ensure car is clean and personal items are removed."
+    }
+  ],
+  "14": [
     {
-      "date": "2025-09-02",
-      "startTime": 13.5,
-      "duration": 2,
-      "label": "Dublin Castle & City Center Walk",
-      "category": "Sightseeing",
-      "notes": "Explore Dublin Castle and take a leisurely walk around the city center to get oriented. Visit Trinity College area."
-    },
+      "date": "2025-09-14",
+      "startTime": 11.33,
+      "duration": 1.37,
+      "label": "Flight FR1182: SNN to LGW",
+      "category": "Flight",
+      "notes": "Ryanair Flight FR1182 from Shannon (SNN) to London Gatwick (LGW). Departure: 11:20 AM, Arrival: 12:55 PM. Passengers: Mr KANTHAVEL VIVEKANANDA (30C) and Ms DENISE CONNOLLY (30D). Reservation: MRZMHC. Checked bags: 20kg + 23kg each, Priority boarding, 2 cabin bags each. Total: 235.42 EUR."
+    }
+  ],
+  "19": [
     {
-      "date": "2025-09-02",
-      "startTime": 15.5,
-      "duration": 1.5,
-      "label": "Temple Bar Area",
-      "category": "Sightseeing",
-      "notes": "Explore the famous Temple Bar district, known for its traditional Irish pubs and cultural significance."
-    },
-    {
-      "date": "2025-09-02",
-      "startTime": 17,
+      "date": "2025-09-19",
+      "startTime": 16,
       "duration": 1,
-      "label": "Dinner at Traditional Irish Pub",
-      "category": "Eating",
-      "notes": "Enjoy dinner at a traditional Irish pub, trying local specialties like Irish stew, fish and chips, or shepherd's pie."
-    },
+      "label": "Check-in at Hampstead Flat",
+      "category": "Hotel/Rest",
+      "notes": "Check-in at modern spacious 1-bedroom flat in Hampstead, Greater London. Host: Alireza. Check-in after 4:00 PM. 2 adults, no pets, quiet hours 10:00 PM - 8:00 AM. Payment: $106.28 CAD via Amex 1007."
+    }
+  ],
+  "20": [
     {
-      "date": "2025-09-02",
-      "startTime": 18,
+      "date": "2025-09-20",
+      "startTime": 10,
       "duration": 1,
-      "label": "Evening Walk & Rest",
-      "category": "Sightseeing",
-      "notes": "Evening stroll around the city center to see Dublin lit up at night. Return to hotel for early rest after the long journey."
+      "label": "Checkout from Hampstead Flat",
+      "category": "Hotel/Rest",
+      "notes": "Checkout from Hampstead flat by 10:00 AM. Ensure flat is clean and personal items are removed."
+    }
+  ],
+  "277": [
+    {
+      "date": "2025-10-04",
+      "startTime": 11,
+      "duration": 13.25,
+      "label": "Flight MH3: LHR to KUL",
+      "category": "Flight",
+      "notes": "Malaysia Airlines Flight MH3 from London Heathrow Terminal 4 to Kuala Lumpur Terminal 1. Departure: 11:00 AM, Arrival: 07:15 AM next day. Passenger: Ms Denise Marie Connolly. Booking: F33IVQ, Ticket: 232-2480176351. Economy Class, 35kg baggage allowance. Check-in closes 60 min before departure, gates close 30 min before departure."
+    }
+  ],
+  "278": [
+    {
+      "date": "2025-10-05",
+      "startTime": 9.17,
+      "duration": 8.42,
+      "label": "Flight MH141: KUL to SYD",
+      "category": "Flight",
+      "notes": "Malaysia Airlines Flight MH141 from Kuala Lumpur Terminal 1 to Sydney Kingsford Smith Terminal 1. Departure: 09:10 AM, Arrival: 20:35 PM. Passenger: Ms Denise Marie Connolly. Seat: 31H. Economy Class, 35kg baggage allowance. Duration: 8h 25m."
+    }
+  ],
+  "278": [
+    {
+      "date": "2025-10-05",
+      "startTime": 14,
+      "duration": 1,
+      "label": "Check-in at Coogee Beachside Sanctuary",
+      "category": "Hotel/Rest",
+      "notes": "Check-in at Italian-inspired beachside sanctuary in Coogee. Address: 84 Beach St, Coogee NSW 2034, Australia. Host: Charlotte. Check-in after 2:00 PM. 2 adults, no pets, quiet hours 10:00 PM - 7:00 AM. Not suitable for children. Payment: $5,741.39 CAD via Amex 1007 (includes $551.10 service fees)."
+    }
+  ],
+  "306": [
+    {
+      "date": "2025-11-02",
+      "startTime": 11,
+      "duration": 1,
+      "label": "Checkout from Coogee Beachside Sanctuary",
+      "category": "Hotel/Rest",
+      "notes": "Checkout from Coogee beachside sanctuary by 11:00 AM. Ensure property is clean and personal items are removed."
     }
   ]
 }
