@@ -89,6 +89,14 @@
       "label": "Checkout from Hampstead Flat",
       "category": "Hotel/Rest",
       "notes": "Checkout from Hampstead flat by 10:00 AM. Ensure flat is clean and personal items are removed."
+    },
+    {
+      "date": "2025-09-20",
+      "startTime": 15.67,
+      "duration": 3,
+      "label": "Flight W9 5735: LGW to FAO",
+      "category": "Flight",
+      "notes": "Wizz Air Flight W9 5735 from London Gatwick Airport (South Terminal) to Faro (FAO). Departure: 15:40, Arrival: 18:40. Passengers: Mr Kanthavel Vivekananda and Ms Denise Connolly. Confirmation: TJ4SPS. Cabin baggage: 1/40x30x20cm each, Checked bag: 1/20kg each. Total: 333.98 GBP. Check-in opens 48 hours before departure."
     }
   ],
   "277": [
@@ -129,6 +137,16 @@
       "label": "Checkout from Coogee Beachside Sanctuary",
       "category": "Hotel/Rest",
       "notes": "Checkout from Coogee beachside sanctuary by 11:00 AM. Ensure property is clean and personal items are removed."
+    }
+  ],
+  "273": [
+    {
+      "date": "2025-10-03",
+      "startTime": 11.42,
+      "duration": 2.92,
+      "label": "Flight W9 5732: FAO to LGW",
+      "category": "Flight",
+      "notes": "Wizz Air Flight W9 5732 from Faro (FAO) to London Gatwick Airport (South Terminal). Departure: 11:25, Arrival: 14:20. Passengers: Mr Kanthavel Vivekananda and Ms Denise Connolly. Confirmation: TJ4SPS. Cabin baggage: 1/40x30x20cm each, Checked bag: 1/20kg each. Total: 333.98 GBP. Check-in opens 48 hours before departure."
     }
   ]
 }
