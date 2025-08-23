@@ -49,6 +49,14 @@
       "label": "Check-in at Wicklow Town Accommodation",
       "category": "Hotel/Rest",
       "notes": "Check-in at 3-bedroom family home with sea and mountain view in Wicklow Town. Host: Gianpaolo. Check-in after 3:00 PM. Pets allowed, quiet hours 9:00 PM - 9:00 AM."
+    },
+    {
+      "date": "2025-09-02",
+      "startTime": 22,
+      "duration": 1,
+      "label": "Touch Base",
+      "category": "Other",
+      "notes": "Scheduled touch base activity."
     }
   ],
   "4": [
@@ -99,6 +107,52 @@
       "notes": "Wizz Air Flight W9 5735 from London Gatwick Airport (South Terminal) to Faro (FAO). Departure: 15:40, Arrival: 18:40. Passengers: Mr Kanthavel Vivekananda and Ms Denise Connolly. Confirmation: TJ4SPS. Cabin baggage: 1/40x30x20cm each, Checked bag: 1/20kg each. Total: 333.98 GBP. Check-in opens 48 hours before departure."
     }
   ],
+  "24": [
+    {
+      "date": "2025-09-24",
+      "startTime": 12,
+      "duration": 1.25,
+      "label": "Airport Arrival & Check-in (Faro - FAO)",
+      "category": "Flight",
+      "notes": "Arrive at Faro Airport for Azores Airlines check-in. Last check-in listed 12:25; plan to arrive with time for bag drop and security. Bring photo ID at check-in as required (Booking Reference: Y3KZLD Office)."
+    },
+    {
+      "date": "2025-09-24",
+      "startTime": 13.42,
+      "duration": 1.67,
+      "label": "Flight S40199: FAO to PDL (Faro → Ponta Delgada)",
+      "category": "Flight",
+      "notes": "AZORES AIRLINES Flight S40199. Departure: 13:25, Arrival: 15:05. Class: V. Seat: 22D. Baggage: 1PC (each piece up to 32 kg; additional fees apply for 23–32 kg). Passenger: Connolly Denise Mrs (ADT). Ticket: 331 2405955167. Booking Ref: Y3KZLD Office. Contact (SATA AZORES AIRLINES): PORTUGAL: +351 296209720, USA: +1-800-762-9995 / +1-508-677-0555, CANADA: +1 416-515-7188. At check-in you must show a photo ID."
+    }
+  ],
+  "28": [
+    {
+      "date": "2025-09-28",
+      "startTime": 7,
+      "duration": 1,
+      "label": "Airport Arrival & Check-in (Ponta Delgada - PDL)",
+      "category": "Flight",
+      "notes": "Arrive at Ponta Delgada (João Paulo II) Airport before last check-in (08:00) for Azores Airlines departure. Bring photo ID and ticket information (Passenger: Connolly Denise Mrs, Ticket: 331 2405955167, Booking Ref: Y3KZLD Office)."
+    },
+    {
+      "date": "2025-09-28",
+      "startTime": 9,
+      "duration": 3.42,
+      "label": "Flight S40198: PDL to FAO (Ponta Delgada → Faro)",
+      "category": "Flight",
+      "notes": "AZORES AIRLINES Flight S40198. Departure: 09:00, Arrival: 12:25. Class: V. Baggage: 1PC. Passenger: Connolly Denise Mrs (ADT). Ticket: 331 2405955167. Fare Basis: VRBSC. Booking Ref: Y3KZLD Office. Contact (SATA AZORES AIRLINES): PORTUGAL: +351 296209720, USA: +1-800-762-9995 / +1-508-677-0555, CANADA: +1 416-515-7188. At check-in you must show a photo ID."
+    }
+  ],
+  "273": [
+    {
+      "date": "2025-10-03",
+      "startTime": 11.42,
+      "duration": 2.92,
+      "label": "Flight W9 5732: FAO to LGW",
+      "category": "Flight",
+      "notes": "Wizz Air Flight W9 5732 from Faro (FAO) to London Gatwick Airport (South Terminal). Departure: 11:25, Arrival: 14:20. Passengers: Mr Kanthavel Vivekananda and Ms Denise Connolly. Confirmation: TJ4SPS. Cabin baggage: 1/40x30x20cm each, Checked bag: 1/20kg each. Total: 333.98 GBP. Check-in opens 48 hours before departure."
+    }
+  ],
   "277": [
     {
       "date": "2025-10-04",
@@ -107,16 +161,6 @@
       "label": "Flight MH3: LHR to KUL",
       "category": "Flight",
       "notes": "Malaysia Airlines Flight MH3 from London Heathrow Terminal 4 to Kuala Lumpur Terminal 1. Departure: 11:00 AM, Arrival: 07:15 AM next day. Passenger: Ms Denise Marie Connolly. Booking: F33IVQ, Ticket: 232-2480176351. Economy Class, 35kg baggage allowance. Check-in closes 60 min before departure, gates close 30 min before departure."
-    }
-  ],
-  "278": [
-    {
-      "date": "2025-10-05",
-      "startTime": 9.17,
-      "duration": 8.42,
-      "label": "Flight MH141: KUL to SYD",
-      "category": "Flight",
-      "notes": "Malaysia Airlines Flight MH141 from Kuala Lumpur Terminal 1 to Sydney Kingsford Smith Terminal 1. Departure: 09:10 AM, Arrival: 20:35 PM. Passenger: Ms Denise Marie Connolly. Seat: 31H. Economy Class, 35kg baggage allowance. Duration: 8h 25m."
     }
   ],
   "278": [
@@ -137,16 +181,6 @@
       "label": "Checkout from Coogee Beachside Sanctuary",
       "category": "Hotel/Rest",
       "notes": "Checkout from Coogee beachside sanctuary by 11:00 AM. Ensure property is clean and personal items are removed."
-    }
-  ],
-  "273": [
-    {
-      "date": "2025-10-03",
-      "startTime": 11.42,
-      "duration": 2.92,
-      "label": "Flight W9 5732: FAO to LGW",
-      "category": "Flight",
-      "notes": "Wizz Air Flight W9 5732 from Faro (FAO) to London Gatwick Airport (South Terminal). Departure: 11:25, Arrival: 14:20. Passengers: Mr Kanthavel Vivekananda and Ms Denise Connolly. Confirmation: TJ4SPS. Cabin baggage: 1/40x30x20cm each, Checked bag: 1/20kg each. Total: 333.98 GBP. Check-in opens 48 hours before departure."
     }
   ]
 }

@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DaySchedule } from './DaySchedule';
-import { PlusCircle, Trash2, Save, Loader2, Home, Upload, Download } from 'lucide-react';
+import { PlusCircle, Trash2, Save, Loader2, Home, Upload, Download, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChangeEvent } from 'react';
@@ -18,6 +18,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { loadSchedule, saveSchedule, revalidateSchedulePaths } from '../actions/schedule';
+import { AIScheduleDialog } from './AIScheduleDialog';
 
 function formatDate(dateString: string): string {
   // Manual date formatting to avoid any timezone issues
@@ -49,6 +50,7 @@ export function ScheduleEditor() {
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [importData, setImportData] = useState('');
   const [importError, setImportError] = useState('');
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
   const router = useRouter();
 
   // Load schedule from disk when component mounts
@@ -300,6 +302,16 @@ export function ScheduleEditor() {
     }
   }
 
+  function handleAIScheduleUpdate(newSchedule: Record<number, Activity[]>) {
+    setCurrentSchedule(newSchedule);
+    
+    // If the current selected day doesn't exist in the new schedule, select the first available day
+    if (!newSchedule[Number(selectedDay)] && Object.keys(newSchedule).length > 0) {
+      const firstDay = Object.keys(newSchedule).sort((a, b) => Number(a) - Number(b))[0];
+      setSelectedDay(firstDay);
+    }
+  }
+
   return (
     <div className="container mx-auto py-4 sm:py-6 space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
@@ -393,6 +405,18 @@ export function ScheduleEditor() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          
+          {/* AI Schedule Update Button */}
+          <Button 
+            onClick={() => setAiDialogOpen(true)}
+            size="sm"
+            variant="outline"
+            className="text-xs sm:text-sm h-8 sm:h-10 flex items-center gap-1 sm:gap-2 border-purple-300 text-purple-700 hover:bg-purple-50 hover:text-purple-800 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-950"
+            disabled={isLoading || Object.keys(currentSchedule).length === 0}
+          >
+            <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">AI Update</span>
+          </Button>
           
           <Button 
             onClick={handleSaveSchedule} 
@@ -591,6 +615,14 @@ export function ScheduleEditor() {
           ))}
         </Tabs>
       )}
+      
+      {/* AI Schedule Dialog */}
+      <AIScheduleDialog
+        isOpen={aiDialogOpen}
+        onOpenChange={setAiDialogOpen}
+        currentSchedule={currentSchedule}
+        onScheduleUpdate={handleAIScheduleUpdate}
+      />
     </div>
   );
 }
