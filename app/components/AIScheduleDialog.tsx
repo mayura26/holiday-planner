@@ -289,25 +289,6 @@ export function AIScheduleDialog({
               disabled={isProcessing}
             />
           </div>
-
-          {/* Example prompts */}
-          <div className="space-y-2">
-            <Label className="text-xs font-medium text-muted-foreground">
-              Example prompts (click to use):
-            </Label>
-            <div className="grid gap-1">
-              {examplePrompts.map((example, index) => (
-                <button
-                  key={index}
-                  onClick={() => setPrompt(example)}
-                  className="text-left text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 p-2 hover:bg-blue-50 dark:hover:bg-blue-950 rounded border border-transparent hover:border-blue-200 dark:hover:border-blue-800 transition-colors"
-                  disabled={isProcessing}
-                >
-                  "{example}"
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
         
         <DialogFooter className="flex-col sm:flex-row gap-2">
