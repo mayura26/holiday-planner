@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import AuthSessionProvider from "./components/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Holiday Planner" />
       </head>
       <body className={inter.className}>
-        {children}
-        <Toaster position="top-right" />
+        <AuthSessionProvider>
+          {children}
+          <Toaster position="top-right" />
+        </AuthSessionProvider>
       </body>
     </html>
   );

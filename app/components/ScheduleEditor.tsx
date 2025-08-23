@@ -10,13 +10,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DaySchedule } from './DaySchedule';
-import { PlusCircle, Trash2, Save, Loader2, Home, Upload, Download, Sparkles } from 'lucide-react';
+import { PlusCircle, Trash2, Save, Loader2, Home, Upload, Download, Sparkles, LogOut } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import { loadSchedule, saveSchedule, revalidateSchedulePaths } from '../actions/schedule';
 import { AIScheduleDialog } from './AIScheduleDialog';
 
@@ -196,6 +197,17 @@ export function ScheduleEditor() {
       console.error('Error saving schedule:', error);
       toast.error("Error saving schedule", {
         description: (error as Error).message || "An unexpected error occurred"
+      });
+    }
+  }
+
+  async function handleLogout() {
+    try {
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      console.error('Error signing out:', error);
+      toast.error("Error signing out", {
+        description: "Please try again"
       });
     }
   }
@@ -416,6 +428,16 @@ export function ScheduleEditor() {
           >
             <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
             <span className="hidden sm:inline">AI Update</span>
+          </Button>
+          
+          <Button 
+            onClick={handleLogout}
+            size="sm"
+            variant="outline"
+            className="text-xs sm:text-sm h-8 sm:h-10 flex items-center gap-1 sm:gap-2 text-red-600 hover:bg-red-50 hover:text-red-700 border-red-300 dark:text-red-400 dark:border-red-600 dark:hover:bg-red-950"
+          >
+            <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">Logout</span>
           </Button>
           
           <Button 

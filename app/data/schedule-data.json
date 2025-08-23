@@ -125,6 +125,284 @@
       "notes": "AZORES AIRLINES Flight S40199. Departure: 13:25, Arrival: 15:05. Class: V. Seat: 22D. Baggage: 1PC (each piece up to 32 kg; additional fees apply for 23–32 kg). Passenger: Connolly Denise Mrs (ADT). Ticket: 331 2405955167. Booking Ref: Y3KZLD Office. Contact (SATA AZORES AIRLINES): PORTUGAL: +351 296209720, USA: +1-800-762-9995 / +1-508-677-0555, CANADA: +1 416-515-7188. At check-in you must show a photo ID."
     }
   ],
+  "25": [
+    {
+      "date": "2025-09-25",
+      "startTime": 7.25,
+      "duration": 0.42,
+      "label": "Drive: Ponta Delgada → Lagoa do Canário car park",
+      "category": "Driving",
+      "notes": "Approx. 25 min (≈18 km). Park at the free gravel lot signed “Lagoa do Canário / Miradouro da Boca do Inferno.” Start early to avoid the lot filling after 10:00."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 7.75,
+      "duration": 1,
+      "label": "Boca do Inferno viewpoint & short ridge trail",
+      "category": "Hiking",
+      "notes": "Short easy ridge trail from the car park (10–15 min to the viewpoint). No facilities — bring water and sun protection. Option to extend the ridge path if desired."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 8.75,
+      "duration": 0.5,
+      "label": "Lagoa do Canário (snapchat-shaped lake)",
+      "category": "Sightseeing",
+      "notes": "Small signed forest path from the parking area. Quiet early in the morning — good for photos."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 9.333,
+      "duration": 0.333,
+      "label": "Vista do Rei viewpoint",
+      "category": "Sightseeing",
+      "notes": "Classic twin-lake panorama. Large paved parking next to the abandoned Monte Palace Hotel (free)."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 9.75,
+      "duration": 0.25,
+      "label": "Lagoa de Santiago viewpoint",
+      "category": "Sightseeing",
+      "notes": "Quick roadside pull-off (space for 4–5 cars). Short stop to view crater lake encircled by forest."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 10.25,
+      "duration": 1.25,
+      "label": "Explore Sete Cidades village & lakeshore",
+      "category": "Sightseeing",
+      "notes": "Includes driving down into the crater (≈15 min). Parking free along village streets or small lakeside lots. Activities: kayak/paddleboard rental (~€10/hr), lakeside cycling, or walking the shore."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 12.5,
+      "duration": 1,
+      "label": "Lunch in Sete Cidades",
+      "category": "Eating",
+      "notes": "Options: Green Love (smoothies, bowls) or Restaurante Lagoa Azul (hearty Azorean meals). Or picnic by the lake with supplies picked up earlier."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 13.5,
+      "duration": 0.5,
+      "label": "Drive: Sete Cidades → Ponta da Ferraria",
+      "category": "Driving",
+      "notes": "Coastal scenic drive approx. 30 min. Parking at the paved lot by “Termas da Ferraria.”"
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 14,
+      "duration": 1.33,
+      "label": "Swim at Ponta da Ferraria (natural thermal ocean pools)",
+      "category": "Sightseeing",
+      "notes": "Warm ocean water heated by volcanic vents. Temperatures vary with tide — check tide table; mid/ high tide usually 28–32°C, low tide may have localized >40°C spots. Use ropes/ladders for safety and follow lifeguard guidance. Indoor spa facilities available (booking recommended)."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 15.416,
+      "duration": 0.25,
+      "label": "Ponta do Escalvado viewpoint",
+      "category": "Sightseeing",
+      "notes": "Short drive (5–10 min). Roadside pull-off with cliff-top views west across Mosteiros islets and coastline — great photo stop."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 15.75,
+      "duration": 0.25,
+      "label": "Drive: Ponta do Escalvado → Mosteiros",
+      "category": "Driving",
+      "notes": "Approx. 15 min drive along the coast to Mosteiros."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 16,
+      "duration": 2.75,
+      "label": "Relax at Mosteiros (Praia dos Mosteiros / tidepools) & sunset",
+      "category": "Sightseeing",
+      "notes": "Enjoy black sand beach, rocky tidepools, and basalt sea stacks during golden hour. Dining options: Brisa do Mar (seafood) or Sunset Stefano’s Café (drinks/snacks). If preferred, return to Ponta Delgada afterwards for dinner (≈40 min drive)."
+    },
+    {
+      "date": "2025-09-25",
+      "startTime": 19,
+      "duration": 0.67,
+      "label": "Drive back to Ponta Delgada",
+      "category": "Driving",
+      "notes": "Approx. 40 min drive back to Ponta Delgada. Evening dinner options in town: A Tasca, Taberna Açor (book ahead if busy)."
+    }
+  ],
+  "26": [
+    {
+      "date": "2025-09-26",
+      "startTime": 8.5,
+      "duration": 0.833,
+      "label": "Drive: Ponta Delgada → Furnas",
+      "category": "Driving",
+      "notes": "Approx. 50 min drive to Furnas Valley. Start early to make the most of the morning light."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 9.333,
+      "duration": 0.5,
+      "label": "Miradouro do Pico do Ferro (caldera & lake viewpoint)",
+      "category": "Sightseeing",
+      "notes": "Free paved lot. Classic caldera and Furnas Lake panorama — quick stop for photos and views."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 10,
+      "duration": 1,
+      "label": "Mata Jardim José do Canto & Salto do Rosal (garden + waterfall trail)",
+      "category": "Sightseeing",
+      "notes": "Park at Jardim da Lagoa das Furnas lot (small fee ≈€2–3). Stroll through landscaped gardens and take the ~15 min trail to Salto do Rosal waterfall."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 11,
+      "duration": 0.667,
+      "label": "Drive: Furnas → Maia",
+      "category": "Driving",
+      "notes": "Approx. 35–40 min coastal drive to Maia."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 11.667,
+      "duration": 1,
+      "label": "Praia da Viola Coastal Walk",
+      "category": "Hiking",
+      "notes": "Easy 1.2 mi round-trip coastal walk with cliffs, watermills, and beach. Small free roadside parking near Maia."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 12.667,
+      "duration": 1,
+      "label": "Lunch in Maia",
+      "category": "Eating",
+      "notes": "Options: Restaurante Praia da Viola (seafood, terrace) or snack-bar O Moinho (casual). Booking usually not required."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 13.667,
+      "duration": 0.5,
+      "label": "Drive: Maia → Ribeira dos Caldeirões",
+      "category": "Driving",
+      "notes": "Approx. 25–30 min drive to the Ribeira dos Caldeirões park area."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 14.167,
+      "duration": 0.667,
+      "label": "Ribeira dos Caldeirões (waterfall & watermills trail)",
+      "category": "Hiking",
+      "notes": "20–30 min walk through lush park with waterfall and historic watermills. Free parking at the entrance."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 15,
+      "duration": 0.5,
+      "label": "Ponta do Sossego viewpoint & gardens",
+      "category": "Sightseeing",
+      "notes": "Manicured cliffside gardens with excellent ocean views — good short stop for photos."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 15.5,
+      "duration": 0.25,
+      "label": "Ponta da Madrugada viewpoint (optional)",
+      "category": "Sightseeing",
+      "notes": "Optional extra viewpoint ~10 min further east. Include only if running on schedule."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 15.75,
+      "duration": 0.75,
+      "label": "Drive: Nordeste → Furnas",
+      "category": "Driving",
+      "notes": "Approx. 40–45 min drive back toward Furnas for evening hot springs."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 16.5,
+      "duration": 1.5,
+      "label": "Poça da Dona Beija hot springs (soak)",
+      "category": "Sightseeing",
+      "notes": "Relaxed soak in several warm pools (≈33–38 °C). Typical entry ≈€8–10. Lockers and showers available. Time here may feel short if busy; adjust as needed."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 18,
+      "duration": 1,
+      "label": "Light dinner / snack in Furnas",
+      "category": "Eating",
+      "notes": "Options: Caldeiras & Vulcões (traditional) or Cantinho do Cais (homestyle). Option to skip and return to Ponta Delgada for dinner."
+    },
+    {
+      "date": "2025-09-26",
+      "startTime": 19,
+      "duration": 0.833,
+      "label": "Drive back to Ponta Delgada",
+      "category": "Driving",
+      "notes": "Approx. 50 min drive back to Ponta Delgada. Adjust departure if running behind schedule from earlier stops."
+    }
+  ],
+  "27": [
+    {
+      "date": "2025-09-27",
+      "startTime": 7.5,
+      "duration": 0.75,
+      "label": "Drive: Ponta Delgada/Água de Alto → Lagoa do Fogo viewpoint",
+      "category": "Driving",
+      "notes": "Depart early for Lagoa do Fogo viewpoint. From Água de Alto ≈25 min; from Ponta Delgada allow up to ~45 min depending on route and traffic. Parking: free pull-offs at Miradouro da Lagoa do Fogo or Miradouro da Barrosa."
+    },
+    {
+      "date": "2025-09-27",
+      "startTime": 8.25,
+      "duration": 1.25,
+      "label": "Explore Lagoa do Fogo",
+      "category": "Sightseeing",
+      "notes": "Walk viewpoints and optional short descent to the lake (~15–20 min down). Best light and visibility early; clouds often roll in later. Bring water and a light jacket."
+    },
+    {
+      "date": "2025-09-27",
+      "startTime": 9.5,
+      "duration": 0.5,
+      "label": "Coffee / Snack stop (Ribeira Grande or en route)",
+      "category": "Eating",
+      "notes": "Stop for coffee and pastries at a pastelaria in Ribeira Grande or another café en route south; good second breakfast before kayaking."
+    },
+    {
+      "date": "2025-09-27",
+      "startTime": 11,
+      "duration": 1.5,
+      "label": "Early lunch in Vila Franca do Campo",
+      "category": "Eating",
+      "notes": "Light lunch recommended. Options: Bar Caloura (seaside seafood, ~15 min east) or marina restaurants in Vila Franca. Keep it light for the kayak tour."
+    },
+    {
+      "date": "2025-09-27",
+      "startTime": 13.75,
+      "duration": 0.25,
+      "label": "Check-in at Vila Franca marina (kayak tour)",
+      "category": "Other",
+      "notes": "Arrive to check in and park. Paid marina parking (€2–3). Bring swimsuits, towel, sunscreen, water, and any personal snorkel gear. Tour operators typically require check-in ~15–30 min before departure."
+    },
+    {
+      "date": "2025-09-27",
+      "startTime": 14,
+      "duration": 3,
+      "label": "Kayak guided tour: Vila Franca islet (paddle + swim/snorkel)",
+      "category": "Sightseeing",
+      "notes": "3-hour guided kayak tour around the islet including swimming/snorkeling inside the crater lagoon. Guided, includes gear and basic safety briefing. Expect to return to the marina around 17:00."
+    },
+    {
+      "date": "2025-09-27",
+      "startTime": 17,
+      "duration": 0.5,
+      "label": "Quick snack (optional) in Vila Franca",
+      "category": "Eating",
+      "notes": "Grab pastries, fruit, or a light snack in Vila Franca to tide you over before evening activities (optional)."
+    }
+  ],
   "28": [
     {
       "date": "2025-09-28",

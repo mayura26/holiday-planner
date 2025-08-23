@@ -2,8 +2,8 @@ import { loadSchedule } from "./actions/schedule";
 import { DaySchedule } from "./components/DaySchedule";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Edit, BarChart } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { HeaderButtons } from "./components/HeaderButtons";
 
 // Revalidate the page every 60 seconds instead of on every request
 // This provides a balance between performance and fresh data
@@ -35,20 +35,7 @@ export default async function Home() {
     <main className="container mx-auto py-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <h1 className="text-3xl font-bold">Holiday Planner</h1>
-        <div className="flex gap-2">
-          <Link href="/summary">
-            <Button variant="outline" className="flex items-center gap-2">
-              <BarChart className="h-4 w-4" />
-              Summary
-            </Button>
-          </Link>
-          <Link href="/editor">
-            <Button className="flex items-center gap-2">
-              <Edit className="h-4 w-4" />
-              Edit Schedule
-            </Button>
-          </Link>
-        </div>
+        <HeaderButtons />
       </div>
       
       <div className="space-y-8">
